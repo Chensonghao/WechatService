@@ -1,15 +1,13 @@
 'use strict';
 
 const sha1 = require('sha1');
-const Wechat = require('./wechat');
 const rawBody = require('raw-body');
 const util = require('./util');
-const template = require('./template');
+const replyManager = require('./components/replyManager');
 /*
 微信配置信息验证中间件
 */
-module.exports = opts => {
-    var wechat = new Wechat(opts);
+module.exports = (opts) => {
     return async(ctx, next) => {
         const nonce = ctx.query.nonce;
         const signature = ctx.query.signature;
@@ -38,28 +36,10 @@ module.exports = opts => {
             });
             const content = await util.parseXMLAsync(data);
             const message = util.formatMessage(content.xml);
-
-            const fromUserName = message.FromUserName;
-            const toUserName = message.ToUserName;
-            //用户关注
-            if(message.MsgType==='event' && message.Event ==='subscribe'){
-                const now = new Date().getTime();
-                ctx.status = 200;
-                ctx.type = 'application/xml';
-                const returnMsg = template.textMsg(fromUserName,toUserName,now,'欢迎来到汽车金融服务号！\n\n 1、查询\n 2、帮助');
-                console.log(returnMsg);
-                ctx.body = returnMsg;
-                return;
-            }
-            //用户取消关注
-            if(message.MsgType==='event' && message.Event ==='unsubscribe'){
-
-            }
-            //文本信息
-            if(message.MsgType==='text'){
-                const msgContent = message.content;
-            }
-            console.log(message);
+            ctx.msg = message;
+            ctx.status = 200;
+            ctx.type = 'application/xml';
+            await replyManager(ctx, next);
         }
     };
 }

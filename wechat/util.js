@@ -1,6 +1,8 @@
 'use strict';
 const xml2js = require('xml2js');
 const Promise = require('bluebird');
+const req = Promise.promisify(require('request'));
+const tokenManager = require('./components/tokenManager');
 
 exports.parseXMLAsync = xml => {
     return new Promise((resolve, reject) => {
@@ -42,3 +44,55 @@ function formatMessage(result){
     return message;
 }
 exports.formatMessage = formatMessage;
+exports.request = params => {
+    return new Promise((resolve, reject) => {
+        if(params.json === undefined){
+            params.json = true;
+        }
+        req(params).then(resdata => {
+            let body = resdata.body;
+            if (body) {
+                if (body.errcode && body.errcode !== 0) {
+                    throw new Error(`${params.url}:${body.errcode}--${body.errmsg}`);
+                } else {
+                    resolve(body);
+                }
+            } else {
+                throw new Error('请求失败！');
+            }
+        }).catch(err => {
+            reject(err);
+        });
+    });
+};
+exports.requestByToken = (reqParam, getUrl, paramsArr) => {
+    return new Promise((resolve, reject) => {
+        tokenManager.fecthAccessToken().then(data => {
+            if(getUrl && (typeof getUrl === 'function')){
+                paramsArr = paramsArr || [];
+                paramsArr.unshift(data.access_token);
+                reqParam.url = getUrl.apply(null,paramsArr);
+            }
+            if(reqParam.json === undefined){
+                reqParam.json = true;
+            }
+            if(reqParam.formData){
+                reqParam.formData.access_token = data.access_token;
+            }
+            req(reqParam).then(resdata => {
+                let body = resdata.body;
+                if (body) {
+                    if (body.errcode && body.errcode !== 0) {
+                        throw new Error(`${reqParam.url}:${body.errcode}--${body.errmsg}`);
+                    } else {
+                        resolve(body);
+                    }
+                } else {
+                    throw new Error('请求失败！');
+                }
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    });
+}
