@@ -1,10 +1,8 @@
-/*
-消息管理模块
-*/
 'use strict';
 const template = require('./template');
 const config = require('../../config/config');
 const materialManager = require('./materialManager');
+const userManager = require('./userManager');
 const path = require('path');
 /*
 被动消息回复模块
@@ -20,6 +18,7 @@ module.exports = async(ctx, next) => {
         toUserName: fromUserName,
         msgType: 'text'
     };
+    console.log(message);
     if (message.MsgType === 'event') {
         //用户关注
         if (message.Event === 'subscribe') {
@@ -45,13 +44,23 @@ module.exports = async(ctx, next) => {
             ctx.body = template(params);
         }
         //扫描
-        else if (message.Event === 'SCAN') {
-            console.log(`扫二维码：${message.EventKey},${message.Ticket}`);
+        else if (message.Event === 'scancode_waitmsg') {
+            console.log(`扫码等回复：${message.EventKey}`);
+            console.log(message.ScanCodeInfo);
         }
         //视图
         else if (message.Event === 'VIEW') {
-            params.content = `您点击了菜单中的链接：${message.EventKey}`;
-            ctx.body = template(params);
+            console.log(`您点击了菜单中的链接：${message.EventKey}`);
+        }
+        //群发结果事件推送
+        else if (message.Event === 'MASSSENDJOBFINISH') {
+            const msgId = message.MsgID;
+            switch(message.Status){
+                case 'send success':
+                break;
+                case 'send fail':
+                break;
+            }
         }
     }
     //文本信息
@@ -90,9 +99,16 @@ module.exports = async(ctx, next) => {
             params.mediaId = 'cz0q5TUzFK48i0lUy7uy8pSf21W0zKQ-JnxBAX8vYT8';
             params.title = '视频';
             params.desc = '视频短片';
-        } else if(msgContent === '5'){
+        } else if (msgContent === '5') {
             const res = await materialManager.getMaterialCount();
             reply = JSON.stringify(res);
+        } else if (msgContent === '0') {
+            const res = await userManager.getAllUserList();
+            console.log(res);
+        } else if(msgContent === '6'){
+            const menu = require('./menuManager');
+            const res = await menu.createMenu();
+            console.log(res);
         }
         params.content = reply;
         ctx.body = template(params);

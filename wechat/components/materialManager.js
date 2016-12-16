@@ -6,7 +6,7 @@ const config = require('../../config/config');
 const fs = require('fs');
 const tokenManager = require('./tokenManager');
 const util = require('../util');
-const opts = config.wechat;
+const opts = config.wechat.material;
 const requestByToken = util.requestByToken;
 /*
 上传临时/永久素材

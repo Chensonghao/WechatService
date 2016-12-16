@@ -68,6 +68,7 @@ exports.request = params => {
 exports.requestByToken = (reqParam, getUrl, paramsArr) => {
     return new Promise((resolve, reject) => {
         tokenManager.fecthAccessToken().then(data => {
+            reqParam = reqParam || {};
             if(getUrl && (typeof getUrl === 'function')){
                 paramsArr = paramsArr || [];
                 paramsArr.unshift(data.access_token);
