@@ -1,3 +1,0 @@
-{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-21 9:0:10"}
-{"type":"info","msg":"{\"request\":{\"method\":\"GET\",\"url\":\"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx6ca0cdfea611e0d2&secret=efaf8f6beb08b10f94bcb575c9b29478\",\"json\":true},\"status\":200}","time":"2016-12-21 9:0:11"}
-{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-21 9:6:30"}
