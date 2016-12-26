@@ -1,8 +1,8 @@
 /*消息群发管理模块*/
 'use strict';
 const Promise = require('bluebird');
-const config = require('../../config/config');
-const tokenManager = require('./tokenManager');
+const config = require('../../config');
+const tokenManager = require('./token');
 const util = require('../util');
 const mass = config.wechat.mass;
 const requestByToken = util.requestByToken;

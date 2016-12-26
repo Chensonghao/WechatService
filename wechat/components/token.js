@@ -1,14 +1,14 @@
 'use strict';
 const Promise = require('bluebird');
 const util = require('../util');
-const config = require('../../config/config');
+const config = require('../../config');
 /*
 管理与微信接口交互，票据验证更新
 */
 function TokenManagement() {
     const _this = this;
     this.opts = config.wechat;
-    this.fecthAccessToken();
+    this.fetchAccessToken();
 }
 TokenManagement.prototype = {
     /*
@@ -17,7 +17,10 @@ TokenManagement.prototype = {
     updateAccessToken() {
         const opts = this.opts;
         const url = opts.accessTokenUrl(opts.appID, opts.appSecret);
-        return util.request({method:'GET',url}).then(data => {
+        return util.request({
+            method: 'GET',
+            url
+        }).then(data => {
             const now = new Date().getTime();
             //新的过期时间，微信票据强制两小时过期，这里提前20s用于防止网络延迟等情况
             data.expires_in = now + (data.expires_in - 20) * 1000;
@@ -37,13 +40,13 @@ TokenManagement.prototype = {
         return now < expires_in;
     },
     /*获取当前可用的access_token*/
-    fecthAccessToken() {
+    fetchAccessToken() {
         let _this = this;
         let opts = this.opts;
         if (this.access_token && this.expires_in && this.isValidAccessToken(this)) {
             return Promise.resolve(this);
         }
-        opts.getAccessToken().then(function(data) {
+        return opts.getAccessToken().then(function(data) {
             try {
                 data = JSON.parse(data);
             } catch (e) {
@@ -63,4 +66,5 @@ TokenManagement.prototype = {
     }
 };
 const instance = new TokenManagement();
+
 module.exports = instance;

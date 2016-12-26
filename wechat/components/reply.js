@@ -1,8 +1,8 @@
 'use strict';
 const template = require('./template');
-const config = require('../../config/config');
-const materialManager = require('./materialManager');
-const userManager = require('./userManager');
+const config = require('../../config');
+const materialManager = require('./material');
+const userManager = require('./user');
 const path = require('path');
 /*
 被动消息回复模块
@@ -18,11 +18,10 @@ module.exports = async(ctx, next) => {
         toUserName: fromUserName,
         msgType: 'text'
     };
-    console.log(message);
     if (message.MsgType === 'event') {
         //用户关注
         if (message.Event === 'subscribe') {
-            params.content = '欢迎来到汽车金融服务号！\n\n1、图片\n2、音乐\n3、图文\n4、视频\n5、查询永久素材数量';
+            params.content = config.reply.subscribe;
             ctx.body = template(params);
             //扫二维码关注，二维码的参数值
             if (message.EventKey) {
@@ -50,6 +49,8 @@ module.exports = async(ctx, next) => {
         }
         //视图
         else if (message.Event === 'VIEW') {
+            params.content = `您点击了菜单：${message.EventKey}`;
+            ctx.body = template(params);
             console.log(`您点击了菜单中的链接：${message.EventKey}`);
         }
         //群发结果事件推送
@@ -106,12 +107,12 @@ module.exports = async(ctx, next) => {
             const res = await userManager.getAllUserList();
             console.log(res);
         } else if(msgContent === '6'){
-            const menu = require('./menuManager');
+            const menu = require('./menu');
             const res = await menu.createMenu();
             console.log(res);
         }
         params.content = reply;
         ctx.body = template(params);
     }
-    await next;
+    await next();
 }

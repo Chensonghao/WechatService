@@ -4,7 +4,8 @@
   "description": "微信公众号",
   "main": "app.js",
   "scripts": {
-    "start": "./node_modules/.bin/runkoa app.js"
+    "start": "./node_modules/.bin/runkoa app.js",
+    "menu": "./node_modules/.bin/runkoa app.js -menu"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,12 @@
   "homepage": "https://github.com/chensonghao/WechatService#readme",
   "dependencies": {
     "bluebird": "^3.4.6",
+    "co-views": "^2.1.0",
+    "crypto": "0.0.3",
+    "cshlog": "^1.0.3",
+    "ejs": "^2.5.5",
     "koa": "^2.0.0",
+    "koa-router": "^7.0.1",
     "raw-body": "^2.1.7",
     "request": "^2.79.0",
     "runkoa": "^1.5.9",

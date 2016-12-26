@@ -3,7 +3,7 @@
 const sha1 = require('sha1');
 const rawBody = require('raw-body');
 const util = require('./util');
-const replyManager = require('./components/replyManager');
+const replyManager = require('./components/reply');
 /*
 微信配置信息验证中间件
 */

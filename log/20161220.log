@@ -1,0 +1,13 @@
+
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-20 9:38:0"}
+{"type":"error","msg":"Error: {\"url\":\"https://api.weixin.qq.com/cgi-bin/token?grant_type=clien_credential&appid=wx6ca0cdfea611e0d2&secret=efaf8f6beb08b10f94bcb575c9b29478\",\"errcode\":40002,\"errmsg\":\"invalid grant_type hint: [oS8PJA0878e544]\"}","time":"2016-12-20 9:38:1"}
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-20 9:46:23"}
+{"type":"info","msg":"{\"request\":{\"method\":\"GET\",\"url\":\"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx6ca0cdfea611e0d2&secret=efaf8f6beb08b10f94bcb575c9b29478\",\"json\":true},\"status\":200}","time":"2016-12-20 9:46:24"}
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-20 9:47:1"}
+{"type":"error","msg":"Error: {\"request\":{\"method\":\"GET\",\"url\":\"https://api.weixin.qq.com/cgi-bin/token?grant_type=clien_credential&appid=wx6ca0cdfea611e0d2&secret=efaf8f6beb08b10f94bcb575c9b29478\",\"json\":true},\"errcode\":40002,\"errmsg\":\"invalid grant_type hint: [mO97bA0419e575]\"}","time":"2016-12-20 9:47:1"}
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-20 16:17:12"}
+{"type":"info","msg":"{\"request\":{\"method\":\"GET\",\"url\":\"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx6ca0cdfea611e0d2&secret=efaf8f6beb08b10f94bcb575c9b29478\",\"json\":true},\"status\":200}","time":"2016-12-20 16:17:16"}
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-20 16:20:11"}
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-20 16:21:41"}
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-20 16:22:12"}
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-20 16:22:57"}

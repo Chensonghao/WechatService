@@ -1,0 +1,6 @@
+
+{"type":"error","msg":"{\"path\":\"/Users/chensonghao/Documents/学习/github projects/WechatService/www/view/record.html\"}","time":"2016-12-22 17:55:6"}
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-22 17:55:53"}
+{"type":"info","msg":"{\"request\":{\"method\":\"GET\",\"url\":\"https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=tmMUEmVoSxWcZyuySwYFDAlgwH1Hpk5XXcUrz0wKJDqWQ67Fyjgf0O3qC3Z5KZ4kxn-lF8OvD4nrvobmCyEIfm2psJIOP6xsWrL_0EfAbZl-brHdBBAHCfG5bMpQtWxdDCIfAHARQW&type=jsapi\",\"json\":true},\"status\":200}","time":"2016-12-22 17:55:57"}
+{"type":"info","msg":"Server is listening on port : 3100","time":"2016-12-22 18:0:12"}
+{"type":"info","msg":"{\"request\":{\"method\":\"GET\",\"url\":\"https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=tmMUEmVoSxWcZyuySwYFDAlgwH1Hpk5XXcUrz0wKJDqWQ67Fyjgf0O3qC3Z5KZ4kxn-lF8OvD4nrvobmCyEIfm2psJIOP6xsWrL_0EfAbZl-brHdBBAHCfG5bMpQtWxdDCIfAHARQW&type=jsapi\",\"json\":true},\"status\":200}","time":"2016-12-22 18:0:21"}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="file" type="file" accept="image/*" />
+    <script type="text/javascript">
+        var opt = {
+            id: 'file',
+            maxWidth: 800,
+            scale: 0.7,
+            callback: function(str) {
+                console.log(str);
+            }
+        };
+
+        function uploadImage(opt) {
+            var dom = document.getElementById(opt.id);
+            dom && dom.addEventListener('change', readFile);
+
+            function readFile() {
+                var file = this.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function(e) {
+                    var blob = this.result;
+                    var img = new Image();
+                    img.onload = function() {
+                        var canvas = document.createElement('canvas');
+                        var w = this.width > opt.maxWidth ? opt.maxWidth : this.width;
+                        var per = w / this.width;
+                        var h = per * this.height;
+                        canvas.width = w;
+                        canvas.height = h;
+                        var context = canvas.getContext('2d');
+                        context.drawImage(this, 0, 0, w, h);
+                        var str = canvas.toDataURL('image/jpeg', opt.scale);
+                        str = str.replace('data:image/jpeg;base64,', '');
+                        opt.callback(str);
+                    }
+                    img.src = blob;
+                }
+            }
+        }
+        uploadImage(opt);
+    </script>
+</body>
+
+</html>

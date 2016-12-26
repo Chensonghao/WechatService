@@ -2,9 +2,9 @@
 素材管理模块
 */
 'use strict';
-const config = require('../../config/config');
+const config = require('../../config');
 const fs = require('fs');
-const tokenManager = require('./tokenManager');
+const tokenManager = require('./token');
 const util = require('../util');
 const opts = config.wechat.material;
 const requestByToken = util.requestByToken;
